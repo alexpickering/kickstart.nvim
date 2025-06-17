@@ -380,8 +380,7 @@ require('lazy').setup({
     dependencies = {
       -- Automatically install LSPs and related tools to stdpath for Neovim
       { 'williamboman/mason.nvim', config = true }, -- NOTE: Must be loaded before dependants
-      { 'williamboman/mason-lspconfig.nvim', version = 'v1.29.0' },
-      'WhoIsSethDaniel/mason-tool-installer.nvim',
+      'williamboman/mason-lspconfig.nvim',
 
       -- Useful status updates for LSP.
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
@@ -567,18 +566,10 @@ require('lazy').setup({
 
       -- You can add other tools here that you want Mason to install
       -- for you, so that they are available from within Neovim.
-      local lsp_servers = vim.tbl_keys(servers or {})
-      local other_tools = {
-        'stylua', -- Used to format Lua code
-      }
-
-      -- Install all tools (LSP servers + formatters/linters) via mason-tool-installer
-      local ensure_installed = vim.tbl_extend('force', lsp_servers, other_tools)
-      require('mason-tool-installer').setup { ensure_installed = ensure_installed }
+      local ensure_installed = vim.tbl_keys(servers or {})
 
       require('mason-lspconfig').setup {
-        ensure_installed = lsp_servers,
-        automatic_enable = false,
+        ensure_installed = ensure_installed,
         handlers = {
           function(server_name)
             -- This handles overriding only values explicitly passed

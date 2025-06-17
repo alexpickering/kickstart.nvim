@@ -2,4 +2,20 @@
 --  I promise not to create any merge conflicts in this directory :)
 --
 -- See the kickstart.nvim README for more information
-return {}
+return {
+  'epwalsh/obsidian.nvim',
+  version = '*',
+  lazy = true,
+  ft = 'markdown',
+  dependencies = {
+    'nvim-lua/plenary.nvim',
+  },
+  opts = {
+    workspaces = {
+      {
+        name = 'personal',
+        path = '~/obsidian/knowledge',
+      },
+    },
+  },
+}
